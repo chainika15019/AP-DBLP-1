@@ -13,6 +13,6 @@ class Authors {
 	}
 
 	/*
-		Wrote the basic structure of this class.
+		Wrote the basic structure of this class. 
 	*/
 }
