@@ -1,10 +1,10 @@
 import java.awt.*;
 import javax.swing.*;
-public class DBLP extends JFrame{
+public class DBLP extends JFrame{	// The GUI class
 	private static final long serialVersionUID = 1L;
 	JFrame mainframe;
-	JPanel panel1,panel2,panel3;
-	JLabel label1,label2,label3;
+	JPanel panel1,panel2,panel3; // panels
+	JLabel label1,label2,label3; // labels
 	GridBagConstraints c = new GridBagConstraints();
 	DBLP()
 	{
