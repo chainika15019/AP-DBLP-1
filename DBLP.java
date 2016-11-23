@@ -9,7 +9,6 @@ public class DBLP extends JFrame{	// The GUI class
 	DBLP()
 	{
 		mainframe= new JFrame("Search Engine");
-		mainframe.setExtendedState(MAXIMIZED_BOTH);
 		mainframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainframe.setLayout(new GridBagLayout());
 		panel1= new JPanel();
