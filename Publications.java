@@ -21,4 +21,24 @@ class Publications {
 	{
 		return pages;
 	}
+	
+	public int getVolume()
+	{
+		return volume;
+	}
+	
+	public String getJournal()
+	{
+		return journal;
+	}
+	
+	public String getEE()
+	{
+		return ee;
+	}
+	
+	public String getURL()
+	{
+		return url;
+	}
 }
