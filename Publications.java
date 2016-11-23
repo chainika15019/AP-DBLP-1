@@ -12,7 +12,13 @@ class Publications {
 		return authors;
 	}
 
-	/*
-		Getter and setters to be written.
-	*/
+	public String getTitle()
+	{
+		return title;
+	}
+	
+	public String getPages()
+	{
+		return pages;
+	}
 }
