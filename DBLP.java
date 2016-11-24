@@ -36,7 +36,7 @@ public class DBLP extends JFrame{	// The GUI class
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx=0;
 		c.gridy=1;
-		c.gridwidth=1;
+		c.gridwidth=1; 
 	
 		mainframe.add(panel2,c);
 		c.fill = GridBagConstraints.HORIZONTAL;
