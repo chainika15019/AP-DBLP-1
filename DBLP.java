@@ -8,7 +8,7 @@ public class DBLP extends JFrame{
 	JPanel panel1,panel2,panel3;
 	JLabel label1,label2,label3;
 	GridBagConstraints c = new GridBagConstraints();
-	DBLP()
+	DBLP() 
 	{
 		mainframe= new JFrame("Search Engine");
 		mainframe.setExtendedState(MAXIMIZED_BOTH);
