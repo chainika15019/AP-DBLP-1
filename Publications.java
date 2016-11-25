@@ -1,6 +1,6 @@
 import java.util.*;
 
-class Main {
+class Publication {
 	private ArrayList <String> authors;
 	private String title;
 	private String pages;
@@ -9,37 +9,37 @@ class Main {
 	private String ee;
 	private String url;
 
-	public ArrayList <String> getAuthor()
+	public ArrayList <String> getAuthor() // getter for Author
 	{
 		return authors;
 	}
 
-	public String getTitle()
+	public String getTitle() // getter for Title
 	{
 		return title;
 	}
 	
-	public String getPages()
+	public String getPages() // getter for Pages
 	{
 		return pages;
 	}
 	
-	public int getVolume()
+	public int getVolume() // getter for Volume
 	{
 		return volume;
 	}
 	
-	public String getJournal()
+	public String getJournal() // getter for Journal
 	{
 		return journal;
 	}
 	
-	public String getEE()
+	public String getEE() // getter for EE
 	{
 		return ee;
 	}
 	
-	public String getURL()
+	public String getURL() // getter for URL
 	{
 		return url;
 	}
