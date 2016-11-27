@@ -1,27 +1,39 @@
-// This will be our main class.
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
 
-class Parser {
-	ArrayList <Publications> ListPublications;
-	ArrayList <Authors> ListAuthors;
-	int whichquery;
+public class Parser extends DefaultHandler{
 
-	public ArrayList <Publications> getListPub()
-	{
-		return ListPublications;
+//	ArrayList<Publication> publication = new ArrayList(); 
+	@Override
+	public void characters(char[] ch, int start, int length) throws SAXException {
+		// TODO Auto-generated method stub
+		super.characters(ch, start, length);
 	}
 
-	public ArrayList <Authors> getListAuthors()
-	{
-		return ListAuthors;
+	@Override
+	public void endDocument() throws SAXException {
+		// TODO Auto-generated method stub
+			
+		System.out.println("END");
 	}
 
-	public int getwhichquery()
-	{
-		return whichquery;
+	@Override
+	public void endElement(String uri, String localName, String qName) throws SAXException {
+		// TODO Auto-generated method stub
+		super.endElement(uri, localName, qName);
 	}
 
-	public static void main(String args[])
-	{
-		// to be done.
+	@Override
+	public void startDocument() throws SAXException {
+		// TODO Auto-generated method stub
+		System.out.println("START");
 	}
+
+	@Override
+	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+		// TODO Auto-generated method stub
+		if(qName.equals(""))
+	} 
+	
 }
