@@ -54,9 +54,9 @@ public class PREPROCESS extends DefaultHandler{
 //		System.out.println(publication.get(1).getTitle());
 //		System.out.println(publication.get(2).getTitle());
 		
-		System.out.println((authors.get(0).getNames()).size());
-		System.out.println((authors.get(1).getNames()).size());
-		System.out.println((authors.get(2).getNames()).size());
+		System.out.println((authors.get(0).getNames()).get(0));
+		System.out.println((authors.get(1).getNames()).get(0));
+		System.out.println((authors.get(2).getNames()).get(0));
 		System.out.println((authors.get(2).getMappedVal()));
 		System.out.println(hm.get("Patrick A. V. Hall"));
 
@@ -74,7 +74,6 @@ public class PREPROCESS extends DefaultHandler{
 			// {
 			// 	System.out.println(authors.get(0).getNames().get(0));
 			// }
-			tmp_auth = new Authors();
 			iswww = false;
 		}
 
@@ -104,6 +103,7 @@ public class PREPROCESS extends DefaultHandler{
 		// {
 				if(attributes.getValue(i).contains("homepages/"))
 				{
+		tmp_auth = new Authors();
 					iswww = true;
 					break;
 					// System.out.println("YES");
