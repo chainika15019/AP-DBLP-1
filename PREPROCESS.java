@@ -8,11 +8,21 @@ import java.util.*;
 public class PREPROCESS extends DefaultHandler{
 	private boolean isauthor = false;
 	private boolean iswww = false;
-	private ArrayList <Authors> authors = new ArrayList <Authors>();
-	private Authors tmp_auth = new Authors();
+	static private ArrayList <Authors> authors = new ArrayList <Authors>();
+	private Authors tmp_auth ;
 	private int ct = 0;
-	private HashMap hm = new HashMap();
+	static private HashMap hm = new HashMap();
 	// private Charsequence shit = "homepages/";
+
+	static public ArrayList <Authors> getAuthors()
+	{
+		return authors;
+	}
+
+	static public HashMap getHashing()
+	{
+		return hm;
+	}
 
 	@Override
 	public void characters(char[] ch, int start, int length) throws SAXException {
@@ -21,20 +31,20 @@ public class PREPROCESS extends DefaultHandler{
 
 		if(isauthor && iswww)
 		{
-			// System.out.println("SA");
 			tmp_auth.addAuthor(str);
 			// if(tmp_auth.getNames().size() == 2)
-			// 	System.out.println(tmp_auth.getNames().size());
-
-			isauthor = false;
-			// iswww = false;
+			// {
+			// 	System.out.println("here");
+			// }
 			if(tmp_auth.getMappedVal() == -1)
 			{
 				tmp_auth.setMappedVal();
 			}
-			// hm.put(str,tmp_auth.getMappedVal());
-			// tmp_auth = new Authors();
+
+			hm.put(str,tmp_auth.getMappedVal());	
 		}
+		
+		isauthor = false;
 	}
 
 	@Override
@@ -48,7 +58,7 @@ public class PREPROCESS extends DefaultHandler{
 		System.out.println((authors.get(1).getNames()).size());
 		System.out.println((authors.get(2).getNames()).size());
 		System.out.println((authors.get(2).getMappedVal()));
-		// System.out.println(hm.get("Patrick A. V. Hall"));
+		System.out.println(hm.get("Patrick A. V. Hall"));
 
 		// System.out.println(ct);
 		System.out.println("END");
@@ -57,9 +67,13 @@ public class PREPROCESS extends DefaultHandler{
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 
-		if(qName.equals("www"))
+		if(qName.equals("www") && iswww)
 		{
 			authors.add(tmp_auth);
+			// if(authors.get(100000).getNames().size())
+			// {
+			// 	System.out.println(authors.get(0).getNames().get(0));
+			// }
 			tmp_auth = new Authors();
 			iswww = false;
 		}
@@ -80,9 +94,6 @@ public class PREPROCESS extends DefaultHandler{
 		// if(attributes.contains("homepages/"))
 		// 	System.out.println(ct);
 
-		boolean p = false;
-		// int len =
-			// System.out.println(attributes.getValue(1));
 
 		if(qName.equals("www"))
 		{
@@ -93,15 +104,11 @@ public class PREPROCESS extends DefaultHandler{
 		// {
 				if(attributes.getValue(i).contains("homepages/"))
 				{
-					p = true;
-					// System.out.println("YES");					
+					iswww = true;
+					break;
+					// System.out.println("YES");
 				}
 			// }
-			}
-			if(p)
-			{
-				tmp_auth = new Authors();
-				iswww = true;
 			}
 		}
 		else
