@@ -1,14 +1,41 @@
 import java.util.*;
 
 class Publication {
-	private ArrayList <String> authors;
+	private ArrayList <String> authors = new ArrayList<String>();
 	private String title;
 	private String pages;
-	private int volume;
+	private String volume;
 	private String journal;
 	private String ee;
 	private String url;
-
+	private int year;
+	private int val;
+	
+	public void addAuthor(String auth)
+	{
+		authors.add(auth);
+	}
+	
+	public int getYear()
+	{
+		return year;
+	}
+	
+	public void setYear(int x)
+	{
+		year = x;
+	}
+	
+	public int getVal()
+	{
+		return val;
+	}
+	
+	public void setVal(int x)
+	{
+		val = x;
+	}
+	
 	public ArrayList <String> getAuthor() // getter for Author
 	{
 		return authors;
@@ -24,7 +51,7 @@ class Publication {
 		return pages;
 	}
 	
-	public int getVolume() // getter for Volume
+	public String getVolume() // getter for Volume
 	{
 		return volume;
 	}
@@ -59,7 +86,7 @@ class Publication {
 		pages = pages_input;
 	}
 	
-	public void setVolume(int volume_input)
+	public void setVolume(String volume_input)
 	{
 		volume = volume_input;
 	}
