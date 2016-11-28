@@ -16,10 +16,16 @@ public class DBLP {
 	
 	public static void main(String[] args) throws IOException, SAXException{
 		System.setProperty("jdk.xml.entityExpansionLimit", "0");
-		
-		XMLReader p = XMLReaderFactory.createXMLReader();
-		p.setContentHandler(new Parser());
-		p.parse("C:/Users/Chainika Tanwar/java/DBLP/src/dblp.xml");
+
+		// XMLReader p = XMLReaderFactory.createXMLReader();
+		// p.setContentHandler(new PREPROCESS());
+		// p.parse("dblp.xml");
+		String str = ""
+		System.out.println()
+
+		// p = XMLReaderFactory.createXMLReader();
+		// p.setContentHandler(new Parser());
+		// p.parse("C:/Users/Chainika Tanwar/java/DBLP/src/dblp.xml");
 		
 	}
 }
