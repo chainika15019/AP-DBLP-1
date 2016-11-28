@@ -17,11 +17,14 @@ public class DBLP {
 	public static void main(String[] args) throws IOException, SAXException{
 		System.setProperty("jdk.xml.entityExpansionLimit", "0");
 
-		// XMLReader p = XMLReaderFactory.createXMLReader();
-		// p.setContentHandler(new PREPROCESS());
-		// p.parse("dblp.xml");
-		String str = ""
-		System.out.println()
+		XMLReader p = XMLReaderFactory.createXMLReader();
+		p.setContentHandler(new PREPROCESS());
+		p.parse("dblp.xml");
+
+		p = XMLReaderFactory.createXMLReader();
+		p.setContentHandler(new PREPROCESS1());
+		p.parse("dblp.xml");
+
 
 		// p = XMLReaderFactory.createXMLReader();
 		// p.setContentHandler(new Parser());
