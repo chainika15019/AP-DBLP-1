@@ -4,11 +4,12 @@ import org.xml.sax.helpers.DefaultHandler;
 import java.util.*;
 
 
-public class Parser extends DefaultHandler{
+public class PREPROCESS1 extends DefaultHandler{
 	private boolean isauthor = false;
 	private int ct=0;
 	private boolean toadd = true;
 	private boolean iswww = false;
+	private String tmptype;
 
 	private ArrayList <Authors> authors = PREPROCESS.getAuthors();
 	private HashMap hm = PREPROCESS.getHashing();	
@@ -17,12 +18,14 @@ public class Parser extends DefaultHandler{
 	public void characters(char[] ch, int start, int length) throws SAXException {
 		// TODO Auto-generated method stub
 		String str = new String(ch,start,length);
-		if(isauthor && iswww)
+		if(isauthor && !iswww)
 		{
-			if(hm.cotainKey(str))
-				authors.get(hm.get(str)).addNumPub();
+			if(hm.containsKey(str))
+				authors.get((Integer)hm.get(str)).addNumPub();
 			else
-				System.out.println(str);
+			{
+				System.out.println(str);				
+			}
 		}
 		isauthor = false;
 		
@@ -32,25 +35,29 @@ public class Parser extends DefaultHandler{
 	@Override
 	public void endDocument() throws SAXException {
 		// TODO Auto-generated method stub
-//		System.out.println(publication.get(0).getTitle());
-//		System.out.println(publication.get(1).getTitle());
-//		System.out.println(publication.get(2).getTitle());
-		
-		System.out.println(ct);
+		// System.out.println(publication.get(0).getTitle());
+		// System.out.println(publication.get(1).getTitle());
+		// System.out.println(publication.get(2).getTitle());
+		System.out.println(hm.get("Sanjeev Saxena"));
+		System.out.println(authors.get((Integer)hm.get("Sanjeev Saxena")).getNumPub());
+
+		// System.out.println(ct);
 		System.out.println("END");
 	}
 
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		
+		if(ct%100000 == 0)
+		{
+			System.out.println(ct);
+		}
+		ct++;
 
 		if(qName.equals("www"))
 		{
 			iswww = false;
 		}
-
-		// TODO Auto-generated method st
-
 
 	}
 
@@ -63,6 +70,7 @@ public class Parser extends DefaultHandler{
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 //		ct++;
+		tmptype = qName;
 		if(qName.equals("www"))
 		{
 			// System.out.println("HERE");
