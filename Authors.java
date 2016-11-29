@@ -3,7 +3,7 @@ import java.util.*;
 public class Authors {
 	static private int mval = -1;
 	// static Has
-	private ArrayList <String> names;
+	private ArrayList <String> names ;
 	private int mappedVal = -1;
 	private int numPub = 0;
 	private int Val=1;
@@ -53,7 +53,5 @@ public class Authors {
 	{
 		return mappedVal;
 	}
-
-
 
 }
