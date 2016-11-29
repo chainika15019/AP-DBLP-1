@@ -19,9 +19,11 @@ public class Parser extends DefaultHandler{
 	ArrayList<Publication> publication = new ArrayList<Publication>(); 
 	Publication tmp = new Publication();
 
+	HashMap hm = PREPROCESS.getHashing();
+
 	private String searchBy;
 	private String nameOrTitle;
-	private ArrayList <String> words = new ArrayList <String>();
+	private ArrayList <String> wordsTitle = new ArrayList <String>();
 	private int year = -1;
 	private int rangeYearStart = -1;
 	private int rangeYearEnd = Integer.MAX_VALUE;
@@ -32,14 +34,15 @@ public class Parser extends DefaultHandler{
 		searchBy = sby;
 		nameOrTitle = not;
 		String s = "";
-		for(int i = 0 ; i < nameOrTitle.size() ; i++)
+		for(int i = 0 ; i < nameOrTitle.length() ; i++)
 		{
-			if(nameOrTitle.get(i) == " ")
+			if(nameOrTitle.charAt(i) == ' ')
 			{
-				words.add(s);
+				wordsTitle.add(s);
 				s = new String();
 			}
-			s += nameOrTitle.get(i);
+			else
+				s += nameOrTitle.charAt(i);
 		}
 		if(yr.equals("") == false)
 			year = Integer.parseInt(yr);
@@ -48,34 +51,63 @@ public class Parser extends DefaultHandler{
 		if(rye.equals("") == false)
 			rangeYearEnd = Integer.parseInt(rye);
 
-	}
+		System.out.println(searchBy + "	" + nameOrTitle + "	" + year + "	" + rangeYearStart + "	" + rangeYearEnd);
 
-	
+	}
 	
 	private boolean Check()
 	{
 
 		if(year != -1)
 		{
-			if(tmp.year != year)
+			if(tmp.getYear() != year)
 				return false;
 		}
-		if(tmp.year > rangeYearStart || tmp.year < rangeYearEnd)
+		if(tmp.getYear() < rangeYearStart || tmp.getYear() > rangeYearEnd)
 			return false;
 
 		if(searchBy.equals("Author"))
 		{
-			boolean tmp = false;
-			for(int i=0; i < tmp.getNames.size(); i++)
+			boolean x = false;
+			for(int i=0; i < tmp.getAuthor().size(); i++)
 			{
-				if(tmp.getNames().get(i).contains(nameOrTitle))
+				if(hm.get(tmp.getAuthor().get(i)) == hm.get(nameOrTitle))
+					x = true;
 			}
+			if(!x)
+				return false;
+			// System.out.println("HERE");
 		}
-
-
-
+		else if(searchBy.equals("Title"))
+		{
+			boolean x = false;
+			String tmpstr = new String();
+			String str = tmp.getTitle();
+			for(int i=0; i < str.length(); i++)
+			{
+				if(x)
+					break;
+				if(str.charAt(i) != ' ')
+				{
+					tmpstr += str.charAt(i);
+				}
+				else
+				{
+					for(int j = 0 ; j < wordsTitle.size(); j++)
+					{
+						if(tmpstr.equals(wordsTitle.get(j)))
+						{
+							x = true;
+							break;							
+						}
+					}
+					tmpstr = new String();
+				}
+			}
+			if(!x)
+				return false;
+		}
 		return true	;
-
 	}
 
 
@@ -141,22 +173,28 @@ public class Parser extends DefaultHandler{
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 
-		if(Check())
-		{
-			publication.add(tmp);
-			tmp = new tmp();
-		}
+		// if(Check())
+		// {
+		// 	System.out.println(ct);
+		// 	publication.add(tmp);
+		// 	tmp = new Publication();
+		// }
 
 	}
 
 	@Override
 	public void startDocument() throws SAXException {
 		// TODO Auto-generated method stub
-		System.out.println("START");
+		System.out.println("START Parser");
 	}
 
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+
+		if(ct%100000 == 0)
+			System.out.println(ct);
+		ct++;
+
 
 		if(tmp.getVal() == 0)
 		{
