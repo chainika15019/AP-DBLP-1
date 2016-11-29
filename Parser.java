@@ -173,12 +173,12 @@ public class Parser extends DefaultHandler{
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 
-		// if(Check())
-		// {
-		// 	System.out.println(ct);
-		// 	publication.add(tmp);
-		// 	tmp = new Publication();
-		// }
+		 if(Check())
+		 {
+		 	System.out.println("HGFHGFHGFH");
+		 	publication.add(tmp);
+		 	tmp = new Publication();
+		 }
 
 	}
 
@@ -191,7 +191,7 @@ public class Parser extends DefaultHandler{
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 
-		if(ct%100000 == 0)
+		if(ct%1000 == 0)
 			System.out.println(ct);
 		ct++;
 
