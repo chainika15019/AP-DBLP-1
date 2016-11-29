@@ -21,9 +21,13 @@ public class DBLP {
 		p.setContentHandler(new PREPROCESS());
 		p.parse("dblp.xml");
 
-		p = XMLReaderFactory.createXMLReader();
-		p.setContentHandler(new PREPROCESS1());
-		p.parse("dblp.xml");
+		// p = XMLReaderFactory.createXMLReader();
+		// p.setContentHandler(new PREPROCESS1());
+		// p.parse("dblp.xml");
+
+		// new Query2(1000);
+
+		new Query1();
 
 
 		// p = XMLReaderFactory.createXMLReader();
