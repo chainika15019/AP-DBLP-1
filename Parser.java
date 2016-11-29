@@ -15,9 +15,70 @@ public class Parser extends DefaultHandler{
 	private boolean isyear = false;
 	private int ct=0;
 	private boolean toadd = true;
-	
+
 	ArrayList<Publication> publication = new ArrayList<Publication>(); 
 	Publication tmp = new Publication();
+
+	private String searchBy;
+	private String nameOrTitle;
+	private ArrayList <String> words = new ArrayList <String>();
+	private int year = -1;
+	private int rangeYearStart = -1;
+	private int rangeYearEnd = Integer.MAX_VALUE;
+
+	Parser(String sby,String not, String yr, String rys, String rye)
+	{
+
+		searchBy = sby;
+		nameOrTitle = not;
+		String s = "";
+		for(int i = 0 ; i < nameOrTitle.size() ; i++)
+		{
+			if(nameOrTitle.get(i) == " ")
+			{
+				words.add(s);
+				s = new String();
+			}
+			s += nameOrTitle.get(i);
+		}
+		if(yr.equals("") == false)
+			year = Integer.parseInt(yr);
+		if(rys.equals("") == false)
+			rangeYearStart = Integer.parseInt(rys);
+		if(rye.equals("") == false)
+			rangeYearEnd = Integer.parseInt(rye);
+
+	}
+
+	
+	
+	private boolean Check()
+	{
+
+		if(year != -1)
+		{
+			if(tmp.year != year)
+				return false;
+		}
+		if(tmp.year > rangeYearStart || tmp.year < rangeYearEnd)
+			return false;
+
+		if(searchBy.equals("Author"))
+		{
+			boolean tmp = false;
+			for(int i=0; i < tmp.getNames.size(); i++)
+			{
+				if(tmp.getNames().get(i).contains(nameOrTitle))
+			}
+		}
+
+
+
+		return true	;
+
+	}
+
+
 	@Override
 	public void characters(char[] ch, int start, int length) throws SAXException {
 		// TODO Auto-generated method stub
@@ -79,85 +140,13 @@ public class Parser extends DefaultHandler{
 
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
-		// TODO Auto-generated method stub
-//		if(toadd)
-//		{
-//		System.out.println(ct++);
-			if(qName.equals("article"))
-			{
-//				System.out.println(ct);
-				publication.add(ct,tmp);
-				if(ct%50000 == 0)
-				{
-					
-					System.out.println(ct);
-				}
-				
-				tmp = null;
-				tmp = new Publication();
-				toadd = false;	
-				ct++;
-//				System.out.println("yo");
-			}
-			else if(qName.equals("inproceedings"))
-			{
-				publication.add(ct,tmp);
-				tmp = null;
-				tmp = new Publication();
-				toadd = false;
-				ct++;
-			}
-			else if(qName.equals("proceedings"))
-			{
-				publication.add(ct,tmp);
-				tmp = null;
-				tmp = new Publication();
-				toadd = false;
-				ct++;
-			}
-			else if(qName.equals("book"))
-			{
-				publication.add(ct,tmp);
-				tmp = null;
-				tmp = new Publication();
-				toadd = false;
-				ct++;
-			}
-			else if(qName.equals("incollection"))
-			{
-				publication.add(ct,tmp);
-				tmp = null;
-				tmp = new Publication();
-				ct++;
-				toadd = false;
-			}
-			else if(qName.equals("phdthesis"))
-			{
-				publication.add(ct,tmp);
-				tmp = null;
-				tmp = new Publication();
-				ct++;
-				toadd = false;
-			}
-			else if(qName.equals("mastherthesis"))
-			{
-				publication.add(ct,tmp);
-				tmp = null;
-				tmp = new Publication();
-				ct++;
-				toadd = false;
-			}
-			else if(qName.equals("phdthesis"))
-			{
-				publication.add(ct,tmp);
-				tmp = null;
-				tmp = new Publication();
-				ct++;
-				toadd = false;
-			}
-			
-//		}
-//		super.endElement(uri, localName, qName);
+
+		if(Check())
+		{
+			publication.add(tmp);
+			tmp = new tmp();
+		}
+
 	}
 
 	@Override
@@ -168,105 +157,45 @@ public class Parser extends DefaultHandler{
 
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-//		ct++;
-		String str = new String();
-		for(int i=0;i<qName.length();i++)
-		{
-			if(qName.charAt(i) != ' ')
-			{
-				str += Character.toString(qName.charAt(i));
-			}
-			else
-			{
-				break;
-			}
-		}
-		
+
 		if(tmp.getVal() == 0)
 		{
 			
-			if(str.equals("article"))
-			{
+			if(qName.equals("article"))
 				tmp.setVal(1);
-			}
-			
-			else if(str.equals("inproceedings"))
-			{
+			else if(qName.equals("inproceedings"))
 				tmp.setVal(2);
-			}
-			
-			else if(str.equals("proceedings"))
-			{
+			else if(qName.equals("proceedings"))
 				tmp.setVal(3);
-			}
-			
-			else if(str.equals("book"))
-			{
+			else if(qName.equals("book"))
 				tmp.setVal(4);
-			}
-			
-			else if(str.equals("incollection"))
-			{
+			else if(qName.equals("incollection"))
 				tmp.setVal(5);
-			}
-			
-			else if(str.equals("phdthesis"))
-			{
+			else if(qName.equals("phdthesis"))
 				tmp.setVal(6);
-			}
-			
-			else if(str.equals("masterthesis"))
-			{
+			else if(qName.equals("masterthesis"))
 				tmp.setVal(7);
-			}
-			
-			else if(str.equals("www"))
-			{
+			else if(qName.equals("www"))
 				tmp.setVal(8);
-			}
 		}
 		else
 		{
-			if(str.equals("author"))
-			{
+			if(qName.equals("author"))
 				isauthor = true;
-			}
-			else if(str.equals("title"))
-			{
+			else if(qName.equals("title"))
 				istitle = true;
-			}
-			else if(str.equals("pages"))
-			{
+			else if(qName.equals("pages"))
 				ispages = true;
-			}
-			else if(str.equals("journal"))
-			{
+			else if(qName.equals("journal"))
 				isjournal = true;
-			}
-			else if(str.equals("url"))
-			{
+			else if(qName.equals("url"))
 				isurl = true;
-			}
-//			private boolean istitle = false;
-//			private boolean ispages = false;
-//			private boolean isjournal = false;
-//			private boolean isurl = false;
-//			private boolean isee = false;
-//			private boolean isvolume = false;
-//			private boolean isyear = false;
-
-			else if(str.equals("ee"))
-			{
+			else if(qName.equals("ee"))
 				isee = true;
-			}
-			else if(str.equals("volume"))
-			{
+			else if(qName.equals("volume"))
 				isvolume = true;
-			}
-			else if(str.equals("year"))
-			{
+			else if(qName.equals("year"))
 				isyear = true;
-			}
 			
 		}
 		
