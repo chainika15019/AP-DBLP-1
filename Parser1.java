@@ -36,6 +36,8 @@ public class Parser1 extends DefaultHandler{
 				mappedVal = (Integer)hm.get(authorName);
 			}
 		}
+		for(int i=0; i<85;i++)
+			pubyears[i] = 0;
 	}
 
 	public ArrayList <Publication> getPublication() {
@@ -74,34 +76,42 @@ public class Parser1 extends DefaultHandler{
 		if(qName.equals("article") && authfound)	{
 			if(tmp.getYear() >= 1936)
 				pubyears[tmp.getYear() - 1936] ++;
+			authfound = false;
 		}
 		else if(qName.equals("inproceedings") && authfound)	{
 			if(tmp.getYear() >= 1936)
 				pubyears[tmp.getYear() - 1936] ++;
+			authfound = false;
 		}
 		else if(qName.equals("proceedings") && authfound)	{
 			if(tmp.getYear() >= 1936)
 				pubyears[tmp.getYear() - 1936] ++;
+			authfound = false;
 		}
 		else if(qName.equals("book") && authfound)	{
 			if(tmp.getYear() >= 1936)
 				pubyears[tmp.getYear() - 1936] ++;
+			authfound = false;
 		}
 		else if(qName.equals("incollection") && authfound)	{
 			if(tmp.getYear() >= 1936)
 				pubyears[tmp.getYear() - 1936] ++;
+			authfound = false;
 		}
 		else if(qName.equals("phdthesis") && authfound)	{
 			if(tmp.getYear() >= 1936)
 				pubyears[tmp.getYear() - 1936] ++;
+			authfound = false;
 		}
 		else if(qName.equals("masterthesis") && authfound)	{
 			if(tmp.getYear() >= 1936)
 				pubyears[tmp.getYear() - 1936] ++;
+			authfound = false;
 		}
 		else if(qName.equals("www") && authfound)	{
 			if(tmp.getYear() >= 1936)
 				pubyears[tmp.getYear() - 1936] ++;
+			authfound = false;
 			}
 		}
 
