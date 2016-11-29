@@ -38,8 +38,8 @@ public class PREPROCESS1 extends DefaultHandler{
 		// System.out.println(publication.get(0).getTitle());
 		// System.out.println(publication.get(1).getTitle());
 		// System.out.println(publication.get(2).getTitle());
-		System.out.println(hm.get("Sanjeev Saxena"));
-		System.out.println(authors.get((Integer)hm.get("Sanjeev Saxena")).getNumPub());
+		System.out.println(hm.get("Semra Tunali"));
+		System.out.println(authors.get((Integer)hm.get("Semra Tunali")).getNumPub());
 
 		// System.out.println(ct);
 		System.out.println("END");
