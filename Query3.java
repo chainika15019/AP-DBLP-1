@@ -23,24 +23,25 @@ public class Query3 {
 		p.setContentHandler(obj1);
 		p.parse("dblp.xml");
 
-		p = XMLReaderFactory.createXMLReader();
-		p.setContentHandler(obj2);
-		p.parse("dblp.xml");
+		// p = XMLReaderFactory.createXMLReader();
+		// p.setContentHandler(obj2);
+		// p.parse("dblp.xml");
 
-		p = XMLReaderFactory.createXMLReader();
-		p.setContentHandler(obj3);
-		p.parse("dblp.xml");
+		// p = XMLReaderFactory.createXMLReader();
+		// p.setContentHandler(obj3);
+		// p.parse("dblp.xml");
 
-		p = XMLReaderFactory.createXMLReader();
-		p.setContentHandler(obj4);
-		p.parse("dblp.xml");
+		// p = XMLReaderFactory.createXMLReader();
+		// p.setContentHandler(obj4);
+		// p.parse("dblp.xml");
 
-		p = XMLReaderFactory.createXMLReader();
-		p.setContentHandler(obj5);
-		p.parse("dblp.xml");
+		// p = XMLReaderFactory.createXMLReader();
+		// p.setContentHandler(obj5);
+		// p.parse("dblp.xml");
 
 		int[] py = obj1.getPubYears();
-
+		for(int i = 0 ; i < 80 ; i++)
+			System.out.print(py[i] + " ");
 
 	}
 
