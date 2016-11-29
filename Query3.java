@@ -27,62 +27,75 @@ public class Query3 {
 		avg = sum / (Math.min(5,year-5));
 		slope = ( py[year] - py[Math.max(year-5,0)] ) / Math.min(5,year-5);
 		ans[s] = ( (py[year] + slope) + avg) / 2;
-		// System.out.println(ans[s]);
+		// System.out.println(sum + " " + slope + " " + ans[s]);
 	}
 
 
 	Query3(String auth1, int year1 , String auth2, int year2, String auth3, int year3, String auth4, int year4, String auth5, int year5)  throws IOException, SAXException
 	{
+		Arrays.fill(ans, 0);
 		System.setProperty("jdk.xml.entityExpansionLimit", "0");
 		arr[0] = auth1;
 		arr[1] = auth2;
 		arr[2] = auth3;
 		arr[3] = auth4;
 		arr[4] = auth5;
+
 		Parser1 obj1 = new Parser1(auth1);
 		Parser1 obj2 = new Parser1(auth2);
 		Parser1 obj3 = new Parser1(auth3);
 		Parser1 obj4 = new Parser1(auth4);
 		Parser1 obj5 = new Parser1(auth5);
+		
 		year1 -= 1936;
 		year2 -= 1936;
 		year3 -= 1936;
 		year4 -= 1936;
 		year5 -= 1936;
-		XMLReader p = XMLReaderFactory.createXMLReader();
-		p.setContentHandler(obj1);
-		p.parse("dblp.xml");
 
-		p = XMLReaderFactory.createXMLReader();
-		p.setContentHandler(obj2);
-		p.parse("dblp.xml");
+		int[] py = new int[88];
 
-		p = XMLReaderFactory.createXMLReader();
-		p.setContentHandler(obj3);
-		p.parse("dblp.xml");
+		if(year1 >= 0 && year1 <= 81)
+		{
+			XMLReader p = XMLReaderFactory.createXMLReader();
+			p.setContentHandler(obj1);
+			p.parse("dblp.xml");
+			py = obj1.getPubYears();
+			Func(py, year1);
 
-		p = XMLReaderFactory.createXMLReader();
-		p.setContentHandler(obj4);
-		p.parse("dblp.xml");
-
-		p = XMLReaderFactory.createXMLReader();
-		p.setContentHandler(obj5);
-		p.parse("dblp.xml");
-
-		int[] py = obj1.getPubYears();
-		Func(py, year1);
-
-		py = obj2.getPubYears();
-		Func(py, year2);
-		
-		py = obj3.getPubYears();
-		Func(py, year3);
-		
-		py = obj4.getPubYears();
-		Func(py, year4);
-		
-		py = obj5.getPubYears();
-		Func(py, year5);
+		}
+		if(year2 >= 0 && year2 <= 81)
+		{
+			XMLReader p = XMLReaderFactory.createXMLReader();
+			p.setContentHandler(obj2);
+			p.parse("dblp.xml");
+			py = obj2.getPubYears();
+			Func(py, year2);
+		}
+		if(year3 >= 0 && year3 <= 81)
+		{
+			XMLReader p = XMLReaderFactory.createXMLReader();
+			p.setContentHandler(obj3);
+			p.parse("dblp.xml");
+			py = obj3.getPubYears();
+			Func(py, year3);
+		}
+		if(year4 >= 0 && year4 <= 81)
+		{
+			XMLReader p = XMLReaderFactory.createXMLReader();
+			p.setContentHandler(obj4);
+			p.parse("dblp.xml");
+			py = obj4.getPubYears();
+			Func(py, year4);
+		}
+		if(year5 >= 0 && year5 <= 81)
+		{
+			XMLReader p = XMLReaderFactory.createXMLReader();
+			p.setContentHandler(obj5);
+			p.parse("dblp.xml");
+			py = obj5.getPubYears();
+			Func(py, year5);
+		}
 
 		setEV();
 	}
@@ -99,7 +112,7 @@ public class Query3 {
 
 	public String[][] getExpectedValue()
 	{
-		return to_be_returned;
+		return to_be_returned;	
 	}
 
 
