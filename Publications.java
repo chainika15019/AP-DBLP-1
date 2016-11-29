@@ -9,7 +9,12 @@ class Publication {
 	private String ee;
 	private String url;
 	private int year;
-	private int val;
+	private int val =0 ;
+
+	Publication()
+	{
+		val = 0;
+	}
 	
 	public void addAuthor(String auth)
 	{
@@ -104,6 +109,17 @@ class Publication {
 	public void setURL(String url_input)
 	{
 		url = url_input;
+	}
+
+	public void display()
+	{
+		System.out.println(authors.get(0));
+		System.out.println(title);
+		System.out.println(pages);
+		System.out.println(year);
+		System.out.println(journal);
+		System.out.println(url);
+		System.out.println();System.out.println();System.out.println();
 	}
 
 }
