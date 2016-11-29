@@ -24,37 +24,12 @@ public class Parser extends DefaultHandler{
 	private String searchBy;
 	private String nameOrTitle;
 	private ArrayList <String> wordsTitle = new ArrayList <String>();
+	private int mappedAuthor;
 	private int year = -1;
 	private int rangeYearStart = -1;
 	private int rangeYearEnd = Integer.MAX_VALUE;
+	private boolean auth_present = false;
 
-	Parser(String sby,String not, String yr, String rys, String rye)
-	{
-
-		searchBy = sby;
-		nameOrTitle = not;
-		String s = "";
-		for(int i = 0 ; i < nameOrTitle.length() ; i++)
-		{
-			if(nameOrTitle.charAt(i) == ' ')
-			{
-				wordsTitle.add(s);
-				s = new String();
-			}
-			else
-				s += nameOrTitle.charAt(i);
-		}
-		if(yr.equals("") == false)
-			year = Integer.parseInt(yr);
-		if(rys.equals("") == false)
-			rangeYearStart = Integer.parseInt(rys);
-		if(rye.equals("") == false)
-			rangeYearEnd = Integer.parseInt(rye);
-
-		System.out.println(searchBy + "	" + nameOrTitle + "	" + year + "	" + rangeYearStart + "	" + rangeYearEnd);
-
-	}
-	
 	private boolean Check()
 	{
 
@@ -68,13 +43,13 @@ public class Parser extends DefaultHandler{
 
 		if(searchBy.equals("Author"))
 		{
-			boolean x = false;
-			for(int i=0; i < tmp.getAuthor().size(); i++)
-			{
-				if(hm.get(tmp.getAuthor().get(i)) == hm.get(nameOrTitle))
-					x = true;
-			}
-			if(!x)
+			// boolean x = false;
+			// for(int i=0; i < tmp.getAuthor().size(); i++)
+			// {
+			// 	if((Integer)hm.get(tmp.getAuthor().get(i)) == mappedAuthor)
+			// 		x = true;
+			// }
+			if(!auth_present)
 				return false;
 			// System.out.println("HERE");
 		}
@@ -110,13 +85,43 @@ public class Parser extends DefaultHandler{
 		return true	;
 	}
 
+	Parser(String sby,String not, String yr, String rys, String rye)
+	{
 
+		searchBy = sby;
+		nameOrTitle = not;
+		String s = "";
+		for(int i = 0 ; i < nameOrTitle.length() ; i++)
+		{
+			if(nameOrTitle.charAt(i) == ' ')
+			{
+				wordsTitle.add(s);
+				s = new String();
+			}
+			else
+				s += nameOrTitle.charAt(i);
+		}
+		if(yr.equals("") == false)
+			year = Integer.parseInt(yr);
+		if(rys.equals("") == false)
+			rangeYearStart = Integer.parseInt(rys);
+		if(rye.equals("") == false)
+			rangeYearEnd = Integer.parseInt(rye);
+		if(hm.containsKey(nameOrTitle));
+			mappedAuthor = (Integer)hm.get(nameOrTitle);
+
+		System.out.println(searchBy + "	" + nameOrTitle + "	" + year + "	" + rangeYearStart + "	" + rangeYearEnd);
+
+	}
+	
 	@Override
 	public void characters(char[] ch, int start, int length) throws SAXException {
 		// TODO Auto-generated method stub
 		String str = new String(ch,start,length);
 		if(isauthor)
 		{
+			if((Integer)hm.get(str) == mappedAuthor)
+				auth_present = true;
 			tmp.addAuthor(str);
 			isauthor = false;
 		}
@@ -156,7 +161,7 @@ public class Parser extends DefaultHandler{
 			isyear = false;
 		}
 		
-//		super.characters(ch, start, length);
+		super.characters(ch, start, length);
 	}
 
 	@Override
@@ -173,49 +178,47 @@ public class Parser extends DefaultHandler{
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 
-		 if(Check())
-		 {
-		 	System.out.println("HGFHGFHGFH");
-		 	publication.add(tmp);
-		 	tmp = new Publication();
-		 }
+		if(Check())
+		{
+			// System.out.println("		" + ct);
+			tmp.display();
+			publication.add(tmp);
+			tmp = new Publication();
+			auth_present = false;
+		}
 
 	}
 
 	@Override
 	public void startDocument() throws SAXException {
 		// TODO Auto-generated method stub
-		System.out.println("START Parser");
+		System.out.println("START asdsdsd PalundsadrrrrRtstrdgbdgbrser");
 	}
 
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 
-		if(ct%1000 == 0)
+		if(ct%100000 == 0)
 			System.out.println(ct);
 		ct++;
 
 
-		if(tmp.getVal() == 0)
-		{
-			
-			if(qName.equals("article"))
-				tmp.setVal(1);
-			else if(qName.equals("inproceedings"))
-				tmp.setVal(2);
-			else if(qName.equals("proceedings"))
-				tmp.setVal(3);
-			else if(qName.equals("book"))
-				tmp.setVal(4);
-			else if(qName.equals("incollection"))
-				tmp.setVal(5);
-			else if(qName.equals("phdthesis"))
-				tmp.setVal(6);
-			else if(qName.equals("masterthesis"))
-				tmp.setVal(7);
-			else if(qName.equals("www"))
-				tmp.setVal(8);
-		}
+		if(qName.equals("article"))
+			tmp.setVal(1);
+		else if(qName.equals("inproceedings"))
+			tmp.setVal(2);
+		else if(qName.equals("proceedings"))
+			tmp.setVal(3);
+		else if(qName.equals("book"))
+			tmp.setVal(4);
+		else if(qName.equals("incollection"))
+			tmp.setVal(5);
+		else if(qName.equals("phdthesis"))
+			tmp.setVal(6);
+		else if(qName.equals("masterthesis"))
+			tmp.setVal(7);
+		else if(qName.equals("www"))
+			tmp.setVal(8);
 		else
 		{
 			if(qName.equals("author"))
